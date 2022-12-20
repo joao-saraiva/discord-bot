@@ -2,8 +2,12 @@
 
 require 'json'
 
+require_relative 'handler_json'
+
 # This class represent an absctracion on the action of punch the clock.
 class PunchTheClock
+  include HandlerJson
+
   def perfom_start_time(start_time, employer)
     employer.start_time = start_time
   end
@@ -13,10 +17,7 @@ class PunchTheClock
   end
 
   def save_day_perfom(employer)
-    File.open(file_path, 'w') do |file|
-      json = entire_json
-      file.puts JSON.pretty_generate(json.merge(hashed_employer(employer, json)))
-    end
+    save_json(employer, employer.name, file_path)
   end
 
   def file_path
@@ -26,30 +27,5 @@ class PunchTheClock
     path += "/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json"
 
     path
-  end
-
-  private
-
-  def entire_json
-    if File.exist?(file_path)
-      json = File.read(file_path)
-      begin
-        JSON.parse(json)
-      rescue StandardError
-        {}
-      end
-    else
-      {}
-    end
-  end
-
-  def hashed_employer(employer, attributes = {})
-    attributes[employer.name] = {}
-    employer.instance_variables.each do |attribute|
-      formated_attribute = attribute.to_s[1..]
-      attributes[employer.name][formated_attribute] = employer.send(formated_attribute)
-    end
-
-    attributes
   end
 end
