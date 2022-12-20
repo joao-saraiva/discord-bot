@@ -5,6 +5,7 @@ require_relative '../lib/punch_the_clock'
 
 class PunchTheClockTest < MiniTest::Test
   def setup
+    ENV["test"] = "true"
     @punch_the_clock = PunchTheClock.new
   end
 
@@ -24,5 +25,15 @@ class PunchTheClockTest < MiniTest::Test
     @punch_the_clock.perfom_end_time(end_time, employer)
 
     assert_equal(employer.end_time, end_time)
+  end
+
+  def test_save_day_perfom
+    employer = Employer.new({name: 'Joseph', age: 21})
+    @punch_the_clock.save_day_perfom(employer)
+
+    employer2 = Employer.new({name: 'Chris', age: 21})
+    @punch_the_clock.save_day_perfom(employer2)
+
+    assert_equal true, File.exists?("/home/coreplan/Documents/Study/discord-bot/json/test/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json")
   end
 end
