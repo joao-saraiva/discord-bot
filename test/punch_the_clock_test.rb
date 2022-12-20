@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 
+require_relative '../lib/employer'
 require_relative '../lib/punch_the_clock'
 
 class PunchTheClockTest < MiniTest::Test
@@ -7,17 +8,21 @@ class PunchTheClockTest < MiniTest::Test
     @punch_the_clock = PunchTheClock.new
   end
 
-  def test_initialize
-    assert_equal(false, @punch_the_clock.punched?)
-    assert_equal(nil, @punch_the_clock.punched_at)
-    assert_equal(nil, @punch_the_clock.puncher)
+  def test_perfom_start_time
+    employer = Employer.new({name: 'Joseph', age: 21})
+
+    start_time = Time.now
+    @punch_the_clock.perfom_start_time(start_time, employer)
+
+    assert_equal(employer.start_time, start_time)
   end
 
-  def test_punched
-    assert_equal(false, @punch_the_clock.punched?)
+  def test_perform_end_time
+    employer = Employer.new({name: 'Joseph', age: 21})
 
-    @punch_the_clock.punched_at = Time.now
+    end_time = Time.now
+    @punch_the_clock.perfom_end_time(end_time, employer)
 
-    assert_equal(true, @punch_the_clock.punched?)
+    assert_equal(employer.end_time, end_time)
   end
 end

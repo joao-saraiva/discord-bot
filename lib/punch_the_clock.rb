@@ -2,14 +2,11 @@
 
 # This class represent an absctracion on the action of punch the clock.
 class PunchTheClock
-  attr_accessor :punched_at, :puncher
-
-  def initialize(options = {})
-    self.puncher = options[:puncher]
-    self.punched_at = options[:punched_at]
+  def perfom_start_time(start_time, employer)
+    employer.start_time = start_time
   end
 
-  def punched?
-    !@punched_at.nil?
+  def perfom_end_time(end_time, employer)
+    employer.end_time = end_time
   end
 end

@@ -9,4 +9,8 @@ class Employer
     @name = options[:name]
     @age = options[:age]
   end
+
+  def punched?
+    !@start_time.nil? && !@end_time.nil?
+  end
 end

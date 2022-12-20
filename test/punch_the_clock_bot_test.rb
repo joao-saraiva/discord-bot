@@ -1,5 +1,7 @@
 require 'minitest/autorun'
 
+require_relative '../lib/employer'
+require_relative '../lib/punch_the_clock'
 require_relative '../lib/punch_the_clock_bot'
 
 class PunchTheClockBotTest < MiniTest::Test
