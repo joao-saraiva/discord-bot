@@ -1,4 +1,4 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 # This class represent an absctracion on the action of punch the clock.
 class PunchTheClock
