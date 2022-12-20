@@ -34,6 +34,6 @@ class PunchTheClockTest < MiniTest::Test
     employer2 = Employer.new({name: 'Chris', age: 21})
     @punch_the_clock.save_day_perfom(employer2)
 
-    assert_equal true, File.exists?("/home/coreplan/Documents/Study/discord-bot/json/test/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json")
+    assert_equal true, File.exists?(@punch_the_clock.file_path)
   end
 end

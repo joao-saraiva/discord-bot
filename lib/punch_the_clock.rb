@@ -13,19 +13,11 @@ class PunchTheClock
   end
 
   def save_day_perfom(employer)
-    json = File.read(file_path)
-    entire_json = begin
-      JSON.parse(json)
-    rescue StandardError
-      {}
-    end
-
     File.open(file_path, 'w') do |file|
-      file.puts JSON.pretty_generate(entire_json.merge(hashed_employer(employer, entire_json)))
+      json = entire_json
+      file.puts JSON.pretty_generate(json.merge(hashed_employer(employer, json)))
     end
   end
-
-  private
 
   def file_path
     path = '/home/coreplan/Documents/Study/discord-bot/json'
@@ -34,6 +26,21 @@ class PunchTheClock
     path += "/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json"
 
     path
+  end
+
+  private
+
+  def entire_json
+    if File.exist?(file_path)
+      json = File.read(file_path)
+      begin
+        JSON.parse(json)
+      rescue StandardError
+        {}
+      end
+    else
+      {}
+    end
   end
 
   def hashed_employer(employer, attributes = {})
