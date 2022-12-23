@@ -12,7 +12,7 @@ class PunchTheClock
   def punch(time, employer)
     json = read_json(file_path)
 
-    json[employer.name.to_sym] ? perfom_end_time(time, employer) : perfom_start_time(time, employer)
+    json[employer.name] ? perfom_end_time(time, employer) : perfom_start_time(time, employer)
   end
 
   def perfom_start_time(start_time, employer)
