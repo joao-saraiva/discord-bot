@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'byebug'
+require 'json'
 
 # This module can deal with read and write json, and format datas for put at the json
 module HandlerJson

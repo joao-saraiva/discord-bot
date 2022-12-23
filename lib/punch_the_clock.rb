@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
-
 require_relative 'handler_json'
 
 # This class represent an absctracion on the action of punch the clock.
