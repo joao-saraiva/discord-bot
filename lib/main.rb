@@ -7,6 +7,8 @@ PREFIXES = {
   83_281_822_225_530_880 => '?'
 }.freeze
 
+REQUIRED_INPUT_PENDECY = %w[title description].freeze
+
 PUNCH_THE_CLOCK = PunchTheClock.new.freeze
 
 prefix_proc = proc do |message|
@@ -38,6 +40,20 @@ bot.command(:who_worked_at, description: 'Check who was present at the reunion',
     event.respond PUNCH_THE_CLOCK.who_worked_at(input)
   else
     event.respond 'There is no register for this day'
+  end
+end
+
+bot.command(:create_pendecy, description: 'Create a pendecy', usage: 'Create a pendecy') do |event, input|
+  inputs = input.delete(' ').split(',').map { |formated_input| formated_input.split(':') }
+
+  if (inputs.flatten & REQUIRED_INPUT_PENDECY).any?
+    author = Employer.new({ name: event.author })
+    title = inputs.select { |formated_input| formated_input.include?('title') }.flatten[1]
+    description = inputs.select { |formated_input| formated_input.include?('description') }.flatten[1]
+
+    Pendecy.new({ title: title, description: description }).perfom(author)
+  else
+    event.respond 'Invalid input, try to pass like this: title: My title, description: my description'
   end
 end
 
