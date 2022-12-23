@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'byebug'
 
 require_relative 'handler_json'
 
@@ -17,10 +16,12 @@ class PunchTheClock
 
   def perfom_start_time(start_time, employer)
     employer.start_time = start_time
+    save_day_perfom(employer)
   end
 
   def perfom_end_time(end_time, employer)
     employer.end_time = end_time
+    save_day_perfom(employer)
   end
 
   def save_day_perfom(employer)
@@ -34,5 +35,9 @@ class PunchTheClock
     path += "/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json"
 
     path
+  end
+
+  def who_worked_at(file, _date)
+    read_json(file).keys.join(', ')
   end
 end

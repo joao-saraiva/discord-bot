@@ -4,15 +4,16 @@ require 'byebug'
 
 # This module can deal with read and write json, and format datas for put at the json
 module HandlerJson
+  # May be useful in the future
+  # def self.beautify_json(hash, text = "")
+  #   hash.each do |key|
+  #     hash[key].is_a? Hash ? beautify_json(hash[key], text) : text += hash[key]
+  #   end
+
+  #   text
+  # end
+
   private
-
-  def save_json(object, main_name, file_path)
-    json = read_json(file_path)
-
-    File.open(file_path, 'w') do |file|
-      file.puts JSON.pretty_generate(json.merge(hashed_object(object, main_name, json)))
-    end
-  end
 
   def read_json(file_path)
     return {} unless File.exist?(file_path)
@@ -21,6 +22,14 @@ module HandlerJson
       JSON.parse(File.read(file_path))
     rescue StandardError
       {}
+    end
+  end
+
+  def save_json(object, main_name, file_path)
+    json = read_json(file_path)
+
+    File.open(file_path, 'w') do |file|
+      file.puts JSON.pretty_generate(json.merge(hashed_object(object, main_name, json)))
     end
   end
 
