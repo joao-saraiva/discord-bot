@@ -37,7 +37,7 @@ class PunchTheClock
     path
   end
 
-  def who_worked_at(file, _date)
+  def who_worked_at(file)
     read_json(file).keys.join(', ')
   end
 end

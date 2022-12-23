@@ -36,4 +36,15 @@ class PunchTheClockTest < MiniTest::Test
 
     assert_equal true, File.exists?(@punch_the_clock.file_path)
   end
+
+  def test_who_worked_at
+    employer = Employer.new({name: 'Joseph'})
+    @punch_the_clock.save_day_perfom(employer)
+
+    employer2 = Employer.new({name: 'Chris'})
+    @punch_the_clock.save_day_perfom(employer2)
+
+    file = @punch_the_clock.file_path
+    assert_equal("Joseph, Chris", @punch_the_clock.who_worked_at(file))
+  end
 end
