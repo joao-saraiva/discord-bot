@@ -32,7 +32,7 @@ class PunchTheClock
     path = '/home/coreplan/Documents/Study/discord-bot/json'
     path += '/test' if ENV['test']
 
-    path += "/#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json"
+    path += "/punch_the_clock_#{Time.now.day}_#{Time.now.month}_#{Time.now.year}.json"
 
     path
   end

@@ -32,7 +32,7 @@ end
 
 bot.command(:who_worked_at, description: 'Check who was present at the reunion',
                             usage: 'Check who was present at the reunion') do |event, input|
-  path = "/home/coreplan/Documents/Study/discord-bot/json/#{input}"
+  path = "/home/coreplan/Documents/Study/discord-bot/json/punch_the_clock_#{input}"
 
   if File.exist?(path)
     event.respond PUNCH_THE_CLOCK.who_worked_at(input)
