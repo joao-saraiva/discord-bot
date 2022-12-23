@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'byebug'
 
 require_relative 'handler_json'
 
 # This class represent an absctracion on the action of punch the clock.
 class PunchTheClock
   include HandlerJson
+
+  def punch(time, employer)
+    json = read_json(file_path)
+
+    json[employer.name.to_sym] ? perfom_end_time(time, employer) : perfom_start_time(time, employer)
+  end
 
   def perfom_start_time(start_time, employer)
     employer.start_time = start_time
